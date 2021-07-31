@@ -52,7 +52,7 @@ public class GerenciadorDeSalas{
     }
 
     public Reserva reservaSalaChamada(String nomeDaSala, LocalDateTime dataInicial, LocalDateTime dataFinal){
-        
+        Reserva reservas = null;
         //FALTA ESTE
         return reservas;
     }

@@ -108,23 +108,25 @@ public class MarcadorDeReuniao{
                 datasComSobreposicao.add(disponibilidade);
                 return datasComSobreposicao;
             }else{
-                LocalDateTime finalDateInicio = sobreposicoes.get(0).getInicio();
-                LocalDateTime finalDateFim = sobreposicoes.get(0).getFim();
-                for(int i = 1; i < sobreposicoes.size(); i++){
+                if(sobreposicoes.size() > 0){
+                    LocalDateTime finalDateInicio = sobreposicoes.get(0).getInicio();
+                    LocalDateTime finalDateFim = sobreposicoes.get(0).getFim();
+                    for(int i = 1; i < sobreposicoes.size(); i++){
 
-                    LocalDateTime tmpInicio = sobreposicoes.get(i).getInicio();
-                    LocalDateTime tmpFim = sobreposicoes.get(i).getFim();
+                        LocalDateTime tmpInicio = sobreposicoes.get(i).getInicio();
+                        LocalDateTime tmpFim = sobreposicoes.get(i).getFim();
 
-                    if(finalDateInicio.isBefore(tmpInicio)){
-                        finalDateInicio = tmpInicio;
+                        if(finalDateInicio.isBefore(tmpInicio)){
+                            finalDateInicio = tmpInicio;
+                        }
+                        if(finalDateFim.isAfter(tmpFim)){
+                            finalDateFim = tmpFim;
+                        }
                     }
-                    if(finalDateFim.isAfter(tmpFim)){
-                        finalDateFim = tmpFim;
-                    }
+                    Disponibilidade disponibilidade = new Disponibilidade(finalDateInicio, finalDateFim);
+                    disponibilidade.setParticipantesComDisponibilidade(count);
+                    datasComSobreposicao.add(disponibilidade);
                 }
-                Disponibilidade disponibilidade = new Disponibilidade(finalDateInicio, finalDateFim);
-                disponibilidade.setParticipantesComDisponibilidade(count);
-                datasComSobreposicao.add(disponibilidade);
             }
         }
 
