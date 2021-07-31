@@ -3,8 +3,8 @@ import java.time.*;
 
 public class GerenciadorDeSalas{
 
-    List<Sala> salas = new ArrayList<Sala>();
-    Collection<Reserva> reservas = new ArrayList<Reserva>();
+    private List<Sala> salas = new ArrayList<Sala>();
+    private Collection<Reserva> reservas = new ArrayList<Reserva>();
 
     public void adicionaSalaChamada(String nome, int capacidadeMaxima, String descricao){
         

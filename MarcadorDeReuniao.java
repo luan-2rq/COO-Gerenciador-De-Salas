@@ -8,22 +8,17 @@ import java.io.*;
 
 public class MarcadorDeReuniao{
 
-    Collection<String> participantes;
-    Map<String, Disponibilidade> disponibilidades;
-    LocalDate dataInicial;
-    LocalDate dataFinal;
+    private Reuniao reuniao;
 
     public void marcarReuniaoEntre(LocalDate dataInicial, LocalDate dataFinal, Collection<String> listaDeParticipantes){
-        this.participantes = listaDeParticipantes;
-        this.dataInicial = dataInicial;
-        this.dataFinal = dataFinal;
-        this.disponibilidades = new HashMap<String, Disponibilidade>();
+        reuniao = new Reuniao(dataInicial, dataFinal, listaDeParticipantes);
+        System.out.println("|| Reunião marcada!");
     }
 
     public void mostraSobreposicao(){
         System.out.println("-------------------------------------------------------------");
 
-        List<Disponibilidade> datasComSobreposicao = encontreDisponibilidades();
+        List<Disponibilidade> datasComSobreposicao = encontreDisponibilidades(reuniao.getDisponibilidades());
         if(datasComSobreposicao.size() > 1){
             for(int i = 0; i < datasComSobreposicao.size(); i++){
                 LocalDateTime dataInicio = datasComSobreposicao.get(i).getInicio();
@@ -60,7 +55,7 @@ public class MarcadorDeReuniao{
         System.out.println("-------------------------------------------------------------");
     }
 
-    public List<Disponibilidade> encontreDisponibilidades(){
+    public List<Disponibilidade> encontreDisponibilidades(Map<String, Disponibilidade> disponibilidades){
 
         List<Disponibilidade> datasComSobreposicao = new ArrayList<Disponibilidade>();
         List<Disponibilidade> sobreposicoes = new ArrayList<Disponibilidade>();
@@ -137,10 +132,7 @@ public class MarcadorDeReuniao{
     }
 
     public void indicaDisponibilidadeDe(String participante, LocalDateTime inicio, LocalDateTime fim){
-        Disponibilidade result = disponibilidades.putIfAbsent(participante, new Disponibilidade(inicio, fim));
-        if(result != null){
-            disponibilidades.replace(participante, new Disponibilidade(inicio, fim));
-        }
+        reuniao.addDisponibilidade(participante, new Disponibilidade(inicio, fim));
     }
 
 }
