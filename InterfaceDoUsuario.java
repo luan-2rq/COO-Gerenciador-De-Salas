@@ -166,7 +166,7 @@ public class InterfaceDoUsuario {
 
     public static String askNomeSala(GerenciadorDeSalas gerenciadorDeSalas){
         
-        String nomeDaSala;        
+        String nomeDaSala = "";        
         
         while(true){
             
@@ -177,11 +177,23 @@ public class InterfaceDoUsuario {
                 break;
             } catch (Exception e) {
                 
-                System.out.println("\n| Ja existe uma sala com o mesmo nome, digite novamente: ");
-                continue;
-            }  
+                System.out.println("\n| Ja existe uma sala com o mesmo nome");
+                
+                boolean resp;
+                int respConsole;                
+                
+                System.out.println("\n| Deseja voltar para o menu? Digite 1 para SIM ou 2 para NAO e tentar novamente");
+                respConsole = Integer.parseInt(console.readLine());
+                if(respConsole == 2) resp = true;
+                else resp = false;
+                
+                if(resp) continue;
+                else break;
+            } 
         }
-        return nomeDaSala;
+
+        return nomeDaSala; 
+        
     }
 
     public static String askLocal(){
@@ -239,38 +251,31 @@ public class InterfaceDoUsuario {
     
     public static void criaSala(GerenciadorDeSalas gerenciadorDeSalas){
     
-        boolean resp;
         int respConsole;
         String nome;
         String local;
         int capacidade;
         String descricao;
-        
-        System.out.println("\n| Deseja incluir uma nova sala? Digite 1 para SIM ou 2 para NAO");
-        respConsole = Integer.parseInt(console.readLine());
-        if(respConsole == 1) resp = true;
-        else resp = false;
-        
-        if(resp){
-            while(true){
-                try{
-                    nome = askNomeSala(gerenciadorDeSalas);
-                    local = askLocal();
-                    capacidade = askCapacidade();
-                    descricao = askDescricao();
-                    gerenciadorDeSalas.verificaSeSalaExiste(nome);
-                    gerenciadorDeSalas.adicionaSalaChamada(nome, capacidade, descricao, local);
-                    System.out.println("\n| sala criada com sucesso");
+
+        while(true){
+            try{
+                System.out.println("\n| Deseja incluir uma nova sala? Digite 1 para SIM ou 2 para NAO");
+                respConsole = Integer.parseInt(console.readLine());
+                if(respConsole == 2)
                     break;
-                }catch (Exception e) {
-                    System.out.println("\n| Ocorreu um erro ao criar sala, tente novamente");
-                    continue;
-                }
+                nome = askNomeSala(gerenciadorDeSalas);
+                local = askLocal();
+                capacidade = askCapacidade();
+                descricao = askDescricao();
+                gerenciadorDeSalas.verificaSeSalaExiste(nome);
+                gerenciadorDeSalas.adicionaSalaChamada(nome, capacidade, descricao, local);
+                System.out.println("\n| sala criada com sucesso");
+                break;
+            }catch (Exception e) {
+                System.out.println("\n| Ocorreu um erro ao criar sala");
+                continue;
             }
-        }
-        else{
-            return;
-        }  
+        } 
     }
 
     public static void removeSala(GerenciadorDeSalas gerenciadorDeSalas){
@@ -289,7 +294,17 @@ public class InterfaceDoUsuario {
             }catch (Exception e) {
                 
                 System.out.println("\n| A sala nao pode ser removida");
-                continue;
+                
+                boolean resp;
+                int respConsole;                
+                
+                System.out.println("\n| Deseja voltar para o menu? Digite 1 para SIM ou 2 para NAO e tentar novamente");
+                respConsole = Integer.parseInt(console.readLine());
+                if(respConsole == 2) resp = true;
+                else resp = false;
+                
+                if(resp) continue;
+                else break;
             }  
         }
     }
@@ -322,8 +337,18 @@ public class InterfaceDoUsuario {
                 break;
             }catch (Exception e) {
                 
-                System.out.println("\n| A reuniao nao pode ser marcada, tente novamente");
-                continue;
+                System.out.println("\n| A reuniao nao pode ser marcada");
+                
+                boolean resp;
+                int respConsole;                
+                
+                System.out.println("\n| Deseja voltar para o menu? Digite 1 para SIM ou 2 para NAO e tentar novamente");
+                respConsole = Integer.parseInt(console.readLine());
+                if(respConsole == 2) resp = true;
+                else resp = false;
+                
+                if(resp) continue;
+                else break;
             }  
         }
         
@@ -340,17 +365,28 @@ public class InterfaceDoUsuario {
                     break;
                 }
                 String nomeSala = askNomeSala(gerenciadorDeSalas);
+                gerenciadorDeSalas.verificaSeSalaNaoExiste(nomeSala);
                 LocalDateTime dataInicial = askDateTimeInicial();
                 LocalDateTime dataFinal = askDateTimeFinal();
                 verificaSeDataFinalMaiorQueDataInicial(dataInicial, dataFinal);
                 verificaSeDataInicialEstaNoFuturo(dataInicial);
                 gerenciadorDeSalas.reservaSalaChamada(nomeSala, dataInicial, dataFinal);
                 System.out.println("\n|| Reserva concluida");
-                break;
+                break;          
             }catch (Exception e) {
                 
-                System.out.println("\n| Houve algo de errado ao reservar sala, tente novamente");
-                continue;
+                System.out.println("\n| Houve algo de errado ao reservar sala");
+                
+                boolean resp;
+                int respConsole;                
+                
+                System.out.println("\n| Deseja voltar para o menu? Digite 1 para SIM ou 2 para NAO e tentar novamente");
+                respConsole = Integer.parseInt(console.readLine());
+                if(respConsole == 2) resp = true;
+                else resp = false;
+                
+                if(resp) continue;
+                else break;
             }  
         }
     }
@@ -375,7 +411,17 @@ public class InterfaceDoUsuario {
             }catch (Exception e) {
                 
                 System.out.println("\n| Houve algo de errado ao remover sala, tente novamente");
-                continue;
+                
+                boolean resp;
+                int respConsole;                
+                
+                System.out.println("\n| Deseja voltar para o menu? Digite 1 para SIM ou 2 para NAO e voltar para a remocao");
+                respConsole = Integer.parseInt(console.readLine());
+                if(respConsole == 2) resp = true;
+                else resp = false;
+                
+                if(resp) continue;
+                else break;
             }  
         }
     }
@@ -398,8 +444,17 @@ public class InterfaceDoUsuario {
                 break;
             }catch (Exception e) {
                 
-                System.out.println("\n| Houve algo de errado ao impimir reservas da sala, tente novamente");
-                continue;
+                System.out.println("\n| Houve algo de errado ao impimir reservas da sala");
+                
+                boolean resp;
+                int respConsole;                
+                System.out.println("\n| Deseja voltar para o menu? Digite 1 para SIM ou 2 para NAO e tentar novamente");
+                respConsole = Integer.parseInt(console.readLine());
+                if(respConsole == 2) resp = true;
+                else resp = false;
+                
+                if(resp) continue;
+                else break;
             }  
         }
     }
@@ -419,8 +474,18 @@ public class InterfaceDoUsuario {
                 break;
             }catch (Exception e) {
                 
-                System.out.println("\n| Houve algo de errado ao impimir reunioes, tente novamente");
-                continue;
+                System.out.println("\n| Houve algo de errado ao impimir reunioes");
+                
+                boolean resp;
+                int respConsole;                
+                
+                System.out.println("\n| Deseja voltar para o menu? Digite 1 para SIM ou 2 para NAO e tentar novamente");
+                respConsole = Integer.parseInt(console.readLine());
+                if(respConsole == 2) resp = true;
+                else resp = false;
+                
+                if(resp) continue;
+                else break;
             }  
         }
     }
@@ -459,8 +524,18 @@ public class InterfaceDoUsuario {
                 break;
             }catch (Exception e) {
                 
-                System.out.println("\n| A reserva nao pode ser cancelada, tente novamente");
-                continue;
+                System.out.println("\n| A reserva nao pode ser cancelada");
+                
+                boolean resp;
+                int respConsole;                
+                
+                System.out.println("\n| Deseja voltar para o menu? Digite 1 para SIM ou 2 para NAO e tentar novamente");
+                respConsole = Integer.parseInt(console.readLine());
+                if(respConsole == 2) resp = true;
+                else resp = false;
+                
+                if(resp) continue;
+                else break;
             }  
         }
     }

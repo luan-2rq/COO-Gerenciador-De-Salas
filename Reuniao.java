@@ -97,25 +97,40 @@ public class Reuniao {
             LocalDateTime nextInicio = disponibilidade.getValue().getInicio();
             LocalDateTime nextFim = disponibilidade.getValue().getFim();
 
-            if(auxInicio.isBefore(nextFim) && auxFim.isAfter(nextInicio)){
+            if(auxInicio.compareTo(nextFim) < 0 && auxFim.compareTo(nextInicio) > 0){
 
+                System.out.println(i + "- Entrei no ifzao");
                 //Sobreposição com X depois de Y
                 if(auxInicio.isAfter(nextInicio) && auxFim.isAfter(nextFim)){
 
+                    System.out.println(i + "- Entrei no 1o if");
                     count++;
                 //Sobreposição com X antes de Y
                 }else if(auxInicio.isBefore(nextInicio) && auxFim.isBefore(nextFim)){
 
+                    System.out.println(i + "- Entrei no 2o if");
+                    count++;
+
+                //Sobreposição com X dentro de Y
+                }else if(auxInicio.isBefore(nextInicio) && auxFim.isAfter(nextFim)){
+
+                    System.out.println(i + "- Entrei no 3o if");
+                    count++;
+                //Sobreposição com Y dentro de X
+                }else if(auxInicio.isAfter(nextInicio) && auxFim.isBefore(nextFim)){
+
+                    System.out.println(i + "- Entrei no 4o if");
                     count++;
                 //Datas iguais
                 }else if(auxInicio.isEqual(nextInicio) && auxFim.isEqual(nextFim)){
 
+                    System.out.println(i + "- Entrei no 5o if");
                     count++;
                 }
             }
         }
 
-        System.out.println("O numero de sobreposicoes foi: " + count + 1);
+        System.out.println("O numero de sobreposicoes foi: " + (count + 1));
 
         return count + 1;
     }

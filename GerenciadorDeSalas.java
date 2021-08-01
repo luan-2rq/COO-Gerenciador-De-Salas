@@ -156,7 +156,12 @@ public class GerenciadorDeSalas{
 
                 ArrayList<Reserva> reservasDaSala = (ArrayList<Reserva>)reservasParaSala(nomeSala);
                 System.out.println("Todas as reservas para a sala " + nomeSala + ":");
-               
+                
+                if(reservasDaSala.size() == 0){
+                    System.out.println("Nao ha reservas para esta sala");
+                    return;
+                }
+
                 for(int j = 0; j < reservasDaSala.size(); j++){
 
                     System.out.println("inicio: " + reservasDaSala.get(i).inicio() + " / fim: " + reservasDaSala.get(i).fim());
