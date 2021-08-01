@@ -115,6 +115,8 @@ public class Reuniao {
             }
         }
 
+        System.out.println("O numero de sobreposicoes foi: " + count + 1);
+
         return count + 1;
     }
 

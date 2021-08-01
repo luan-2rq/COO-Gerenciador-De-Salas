@@ -7,7 +7,7 @@ public class InterfaceDoUsuario {
     
     private static Console console = System.console();
     
-    public static LocalDateTime askDateTime(){
+    public static LocalDateTime askDateTimeFinal(){
         
         LocalDateTime dateTime;
         
@@ -15,21 +15,43 @@ public class InterfaceDoUsuario {
            
             try {
                 
-                System.out.println("| Insira a data no seguinte formato dd-MM-aaaa HH:mm :");
+                System.out.println("| Insira a Data Final no seguinte formato dd-MM-aaaa HH:mm :");
                 String DataTxt = console.readLine();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
                 dateTime = LocalDateTime.parse(DataTxt, formatter);
                 break;
             } catch (Exception e) {
                
-                System.out.println("\n| A data nao estava no formato correto, insira novamente.");
+                System.out.println("\n| A Data Final nao estava no formato correto, insira novamente.");
                 continue;
             }
         }
         return dateTime;
     }   
 
-    public static LocalDate askDate(){
+    public static LocalDateTime askDateTimeInicial(){
+        
+        LocalDateTime dateTime;
+        
+        while(true){
+           
+            try {
+                
+                System.out.println("| Insira a Data Inicial no seguinte formato dd-MM-aaaa HH:mm :");
+                String DataTxt = console.readLine();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                dateTime = LocalDateTime.parse(DataTxt, formatter);
+                break;
+            } catch (Exception e) {
+               
+                System.out.println("\n| A DataInicial nao estava no formato correto, insira novamente.");
+                continue;
+            }
+        }
+        return dateTime;
+    } 
+
+    public static LocalDate askDateInicial(){
        
         LocalDate data;
         
@@ -37,14 +59,36 @@ public class InterfaceDoUsuario {
             
             try {
                
-                System.out.println("\n| Insira a data no seguinte formato dd-MM-aaaa :");
+                System.out.println("\n| Insira a Data Inicial no seguinte formato dd-MM-aaaa :");
                 String dataTxt = console.readLine();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 data = LocalDate.parse(dataTxt, formatter);
                 break;
             } catch (Exception e) {
                 
-                System.out.println("\n| A data nao estava no formato correto, insira novamente.");
+                System.out.println("\n| A Data Inicial nao estava no formato correto, insira novamente.");
+                continue;
+            }
+        }
+        return data;
+    }
+
+    public static LocalDate askDateFinal(){
+       
+        LocalDate data;
+        
+        while(true){
+            
+            try {
+               
+                System.out.println("\n| Insira a Data Final no seguinte formato dd-MM-aaaa :");
+                String dataTxt = console.readLine();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                data = LocalDate.parse(dataTxt, formatter);
+                break;
+            } catch (Exception e) {
+                
+                System.out.println("\n| A Data Final nao estava no formato correto, insira novamente.");
                 continue;
             }
         }
@@ -99,8 +143,8 @@ public class InterfaceDoUsuario {
                 try {
                     
                     System.out.println("\nInsira a disponibilidade do participante " + participantes.get(i).getNome() + ":");
-                    LocalDateTime dataInicio = askDateTime();
-                    LocalDateTime dataFim = askDateTime();
+                    LocalDateTime dataInicio = askDateTimeInicial();
+                    LocalDateTime dataFim = askDateTimeFinal();
                     participantes.get(i).indicaDisponibilidadeParaReuniao(marcadorDeReuniao.getUltimaReuniao(), dataInicio, dataFim);
                     break;
                 } catch (Exception e) {
@@ -170,7 +214,7 @@ public class InterfaceDoUsuario {
     public static String askDescricao(){
         String descricao;
 
-        System.out.println("| Insira uma descricao: ");
+        System.out.println("\n| Insira uma descricao: ");
         descricao = console.readLine();
         
         return descricao;
@@ -216,10 +260,10 @@ public class InterfaceDoUsuario {
                     descricao = askDescricao();
                     gerenciadorDeSalas.verificaSeSalaExiste(nome);
                     gerenciadorDeSalas.adicionaSalaChamada(nome, capacidade, descricao, local);
-                    System.out.println("| sala criada com sucesso");
+                    System.out.println("\n| sala criada com sucesso");
                     break;
                 }catch (Exception e) {
-                    System.out.println("| Ocorreu um erro ao criar sala, tente novamente");
+                    System.out.println("\n| Ocorreu um erro ao criar sala, tente novamente");
                     continue;
                 }
             }
@@ -257,10 +301,10 @@ public class InterfaceDoUsuario {
             try{
 
                 System.out.println("\n|| Coloque a data inicial da reuniao:\n");
-                LocalDate dataInicial = askDate();
+                LocalDate dataInicial = askDateInicial();
         
                 System.out.println("\n|| Coloque a data final da reuniao:\n");
-                LocalDate dataFinal = askDate();
+                LocalDate dataFinal = askDateFinal();
         
                 verificaSeDataFinalMaiorQueDataInicial(dataInicial, dataFinal);
                 verificaSeDataInicialEstaNoFuturo(dataInicial);
@@ -296,8 +340,8 @@ public class InterfaceDoUsuario {
                     break;
                 }
                 String nomeSala = askNomeSala(gerenciadorDeSalas);
-                LocalDateTime dataInicial = askDateTime();
-                LocalDateTime dataFinal = askDateTime();
+                LocalDateTime dataInicial = askDateTimeInicial();
+                LocalDateTime dataFinal = askDateTimeFinal();
                 verificaSeDataFinalMaiorQueDataInicial(dataInicial, dataFinal);
                 verificaSeDataInicialEstaNoFuturo(dataInicial);
                 gerenciadorDeSalas.reservaSalaChamada(nomeSala, dataInicial, dataFinal);
@@ -390,7 +434,7 @@ public class InterfaceDoUsuario {
             try{
                 if(gerenciadorDeSalas.listaDeSalas().size() == 0){
 
-                    System.out.println("\n| Não existem salas, portanto não existem reservas para serem removidas: ");
+                    System.out.println("\n| Nao existem salas, portanto não existem reservas para serem removidas: ");
                     break;
                 }
 
@@ -400,11 +444,11 @@ public class InterfaceDoUsuario {
 
                 if(gerenciadorDeSalas.reservasParaSala(nomeDaSala).size() == 0){
 
-                    System.out.println("\n| Não existem reservas para a sala citada, portanto não foi possivel cancelar a reserva ");
+                    System.out.println("\n| Nao existem reservas para a sala citada, portanto não foi possivel cancelar a reserva ");
                     break;
                 }
-                LocalDateTime dataInicial = askDateTime();
-                LocalDateTime dataFinal = askDateTime();
+                LocalDateTime dataInicial = askDateTimeInicial();
+                LocalDateTime dataFinal = askDateTimeFinal();
 
                 verificaSeDataFinalMaiorQueDataInicial(dataInicial, dataFinal);
                 verificaSeDataInicialEstaNoFuturo(dataInicial);

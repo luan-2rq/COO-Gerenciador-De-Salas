@@ -11,8 +11,7 @@ public class Main {
         
         GerenciadorDeSalas gerenciadorDeSalas = new GerenciadorDeSalas();
         MarcadorDeReuniao marcadorDeReuniao = new MarcadorDeReuniao();
-
-        // //Criando Reserva
+        
         while(true){
             int opcao = InterfaceDoUsuario.askOpcoes();
             switch (opcao) {
@@ -28,7 +27,7 @@ public class Main {
                     InterfaceDoUsuario.criaReserva(gerenciadorDeSalas);
                     break;
                 case 3:
-                    //Cancelar Reserva
+                    //Cancelando Reserva
                     InterfaceDoUsuario.imprimeReservasDeSala(gerenciadorDeSalas);
                     InterfaceDoUsuario.cancelarReserva(gerenciadorDeSalas);
                     break;
