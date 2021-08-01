@@ -216,6 +216,7 @@ public class InterfaceDoUsuario {
                     descricao = askDescricao();
                     gerenciadorDeSalas.verificaSeSalaExiste(nome);
                     gerenciadorDeSalas.adicionaSalaChamada(nome, capacidade, descricao, local);
+                    System.out.println("| sala criada com sucesso");
                     break;
                 }catch (Exception e) {
                     System.out.println("| Ocorreu um erro ao criar sala, tente novamente");
@@ -356,7 +357,7 @@ public class InterfaceDoUsuario {
     }
 
     public static void imprimeReunioes(MarcadorDeReuniao marcadorDeReuniao){
-               
+        
         while(true){
 
             try{
@@ -470,7 +471,7 @@ public class InterfaceDoUsuario {
                 }
                 break;
             }catch (Exception e) {
-                
+
                 System.out.println("\n| Algo errado ocorreu durante a selecao de opcoes, insira a opcao novamente");
                 continue;
             }

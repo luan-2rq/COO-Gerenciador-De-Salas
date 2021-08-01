@@ -45,7 +45,7 @@ public class MarcadorDeReuniao{
 
     public void imprimeReunioes(){
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         for(int i = 0; i < reunioes.size(); i++){
 
@@ -54,11 +54,11 @@ public class MarcadorDeReuniao{
             System.out.println("  Data Final: " + reunioes.get(i).getDataFinal().format(formatter) + "\n");
 
             ArrayList<Participante> participantes = reunioes.get(i).getParticipantes();
-            System.out.println("  Participantes: " + reunioes.get(i).getDataFinal().format(formatter) + "\n");
-            
-            for(int j = 0; j < participantes.size(); i++){
+            System.out.println("  Participantes:");
 
-                System.out.println("Participante " + (i+1) + ":" + participantes.get(j).getNome()); 
+            for(int j = 0; j < participantes.size(); j++){
+
+                System.out.println("  Participante " + (j+1) + ": " + participantes.get(j).getNome()); 
             }
         }
     }
