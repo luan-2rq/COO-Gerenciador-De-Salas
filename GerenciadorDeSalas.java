@@ -1,5 +1,6 @@
 import java.util.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class GerenciadorDeSalas{
 
@@ -151,21 +152,25 @@ public class GerenciadorDeSalas{
     
     public void imprimeReservasDaSala(String nomeSala){
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
         for (int i = 0; i < salas.size(); i++) {
 
             if (salas.get(i).getNome().equals(nomeSala)){
 
                 ArrayList<Reserva> reservasDaSala = (ArrayList<Reserva>)reservasParaSala(nomeSala);
-                System.out.println("Todas as reservas para a sala " + nomeSala + ":");
+                System.out.println("\n| Todas as reservas para a sala " + nomeSala + ":");
                 
                 if(reservasDaSala.size() == 0){
-                    System.out.println("\nNao ha reservas para esta sala");
+                    System.out.println("\n| Nao ha reservas para esta sala");
                     return;
                 }
 
                 for(int j = 0; j < reservasDaSala.size(); j++){
-
-                    System.out.println("inicio: " + reservasDaSala.get(i).inicio() + " / fim: " + reservasDaSala.get(i).fim());
+                    
+                    String strDataInicial = reservasDaSala.get(i).inicio().format(formatter);
+                    String strDataFinal = reservasDaSala.get(i).fim().format(formatter);
+                    System.out.println("\n  Inicio: " + strDataInicial + " / Fim: " + strDataFinal);
                 }
             }
         }

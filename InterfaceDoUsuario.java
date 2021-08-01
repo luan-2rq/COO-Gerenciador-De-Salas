@@ -44,7 +44,7 @@ public class InterfaceDoUsuario {
                 break;
             } catch (Exception e) {
                
-                System.out.println("\n| A DataInicial nao estava no formato correto, insira novamente.");
+                System.out.println("\n| A Data Inicial nao estava no formato correto, insira novamente.");
                 continue;
             }
         }
@@ -240,9 +240,9 @@ public class InterfaceDoUsuario {
         
         for(int i = 0; i < salas.size(); i++){
 
-            System.out.println("\nSala - " + salas.get(i).getNome());
-            System.out.println(" Local: " + salas.get(i).getLocal());
-            System.out.println(" Descricao: " + salas.get(i).getDescricao() + "\n");
+            System.out.println("\n Sala - " + salas.get(i).getNome());
+            System.out.println("  Local: " + salas.get(i).getLocal());
+            System.out.println("  Descricao: " + salas.get(i).getDescricao() + "\n");
         }
         if(salas.size() == 0){
             System.out.println("Nao existem salas criadas");
@@ -365,7 +365,7 @@ public class InterfaceDoUsuario {
                     break;
                 }
                 String nomeSala = askNomeSala(gerenciadorDeSalas);
-                gerenciadorDeSalas.verificaSeSalaExiste(nomeSala);
+                gerenciadorDeSalas.verificaSeSalaNaoExiste(nomeSala);
                 LocalDateTime dataInicial = askDateTimeInicial();
                 LocalDateTime dataFinal = askDateTimeFinal();
                 verificaSeDataFinalMaiorQueDataInicial(dataInicial, dataFinal);
@@ -509,7 +509,7 @@ public class InterfaceDoUsuario {
 
                 if(gerenciadorDeSalas.reservasParaSala(nomeDaSala).size() == 0){
 
-                    System.out.println("\n| Nao existem reservas para a sala citada, portanto não foi possivel cancelar a reserva ");
+                    System.out.println("\n| Nao existem reservas para a sala citada, portanto nao foi possivel cancelar a reserva ");
                     break;
                 }
                 LocalDateTime dataInicial = askDateTimeInicial();
