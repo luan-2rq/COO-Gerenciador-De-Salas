@@ -167,10 +167,10 @@ public class GerenciadorDeSalas{
                 }
 
                 for(int j = 0; j < reservasDaSala.size(); j++){
-                    
+
                     String strDataInicial = reservasDaSala.get(i).inicio().format(formatter);
                     String strDataFinal = reservasDaSala.get(i).fim().format(formatter);
-                    System.out.println("\n  Inicio: " + strDataInicial + " / Fim: " + strDataFinal);
+                    System.out.println("\nReserva " + (j+1) + "- Inicio: " + strDataInicial + " / Fim: " + strDataFinal);
                 }
             }
         }

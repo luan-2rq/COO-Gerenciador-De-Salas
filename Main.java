@@ -1,9 +1,12 @@
 public class Main {
-   
+
+    private static GerenciadorDeSalas gerenciadorDeSalas = new GerenciadorDeSalas();
+    private static MarcadorDeReuniao marcadorDeReuniao = new MarcadorDeReuniao();
+
     public static void main(String args[]){        
         
-        GerenciadorDeSalas gerenciadorDeSalas = new GerenciadorDeSalas();
-        MarcadorDeReuniao marcadorDeReuniao = new MarcadorDeReuniao();
+        gerenciadorDeSalas = new GerenciadorDeSalas();
+        marcadorDeReuniao = new MarcadorDeReuniao();
         
         while(true){
             int opcao = InterfaceDoUsuario.askOpcoes();

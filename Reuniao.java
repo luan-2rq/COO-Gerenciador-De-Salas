@@ -24,6 +24,13 @@ public class Reuniao {
         IntervaloDeData disponibilidadeEmComum = encontreSobreposicao(this.getDisponibilidades());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
+        for(int j = 0; j < participantes.size(); j++){
+
+            String strDataInicial = disponibilidades.get(participantes.get(j).getNome()).getInicio().format(formatter);
+            String strDataFinal = disponibilidades.get(participantes.get(j).getNome()).getFim().format(formatter);
+            System.out.println("\nPartipante " + (j+1) + " Disponibilidade - Inicio: " + strDataInicial + " / Fim: " + strDataFinal);
+        }
+
         if(disponibilidadeEmComum != null){
 
             LocalDateTime dataInicio = disponibilidadeEmComum.getInicio();
@@ -32,12 +39,12 @@ public class Reuniao {
             String strDataFim = dataFim.format(formatter);
 
             Long periodo = dataInicio.until(dataFim, ChronoUnit.HOURS);
-
-            System.out.println("Todos podem no dia " + strDataInicio + 
+            
+            System.out.println("\n| Todos podem no dia " + strDataInicio + 
             " ate " + strDataFim + " || " + "Periodo para a reuniao: " + periodo + "horas" );
         }else{
 
-            System.out.println("||---Nao houve sobreposicao de horario para todos os participantes---||");
+            System.out.println("\n||---Nao houve sobreposicao de horario para todos os participantes---||");
         }
         
         System.out.println("-------------------------------------------------------------");
