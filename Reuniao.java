@@ -1,6 +1,5 @@
 import java.time.*;
 import java.util.*;
-import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
 
@@ -23,10 +22,10 @@ public class Reuniao {
         System.out.println("-------------------------------------------------------------");
 
         IntervaloDeData disponibilidadeEmComum = encontreSobreposicao(this.getDisponibilidades());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
         if(disponibilidadeEmComum != null){
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             LocalDateTime dataInicio = disponibilidadeEmComum.getInicio();
             LocalDateTime dataFim = disponibilidadeEmComum.getFim();
             String strDataInicio = dataInicio.format(formatter);
@@ -36,13 +35,10 @@ public class Reuniao {
 
             System.out.println("Todos podem no dia " + strDataInicio + 
             " ate " + strDataFim + " || " + "Periodo para a reuniao: " + periodo + "horas" );
-        }
-        else{
+        }else{
 
             System.out.println("||---Nao houve sobreposicao de horario para todos os participantes---||");
         }
-        
-        
         
         System.out.println("-------------------------------------------------------------");
     }
@@ -79,7 +75,6 @@ public class Reuniao {
             IntervaloDeData disponibilidadeEmComum = new IntervaloDeData(finalDateInicio, finalDateFim);
             sobreposicao = disponibilidadeEmComum;
         }
-
         return sobreposicao;
     }
 
@@ -88,8 +83,8 @@ public class Reuniao {
         int count = 0;
         Iterator<Map.Entry<String, IntervaloDeData>> sobreposicoes = disponibilidades.entrySet().iterator();
         Map.Entry<String, IntervaloDeData> disponibilidade = sobreposicoes.next();
-        LocalDateTime auxInicio = disponibilidade.getValue().getInicio();
-        LocalDateTime auxFim = disponibilidade.getValue().getFim();
+        LocalDateTime inicio = disponibilidade.getValue().getInicio();
+        LocalDateTime fim = disponibilidade.getValue().getFim();
 
         for(int i = 0; i < disponibilidades.size() - 1; i++){
 
@@ -97,27 +92,27 @@ public class Reuniao {
             LocalDateTime nextInicio = disponibilidade.getValue().getInicio();
             LocalDateTime nextFim = disponibilidade.getValue().getFim();
 
-            if(auxInicio.compareTo(nextFim) < 0 && auxFim.compareTo(nextInicio) > 0){
+            if(inicio.isBefore(nextFim) && fim.isAfter(nextInicio)){
 
                 //Sobreposição com X depois de Y
-                if(auxInicio.isAfter(nextInicio) && auxFim.isAfter(nextFim)){
+                if(inicio.isAfter(nextInicio) && fim.isAfter(nextFim)){
 
                     count++;
                 //Sobreposição com X antes de Y
-                }else if(auxInicio.isBefore(nextInicio) && auxFim.isBefore(nextFim)){
+                }else if(inicio.isBefore(nextInicio) && fim.isBefore(nextFim)){
 
                     count++;
 
                 //Sobreposição com X dentro de Y
-                }else if(auxInicio.isBefore(nextInicio) && auxFim.isAfter(nextFim)){
+                }else if(inicio.isBefore(nextInicio) && fim.isAfter(nextFim)){
 
                     count++;
                 //Sobreposição com Y dentro de X
-                }else if(auxInicio.isAfter(nextInicio) && auxFim.isBefore(nextFim)){
+                }else if(inicio.isAfter(nextInicio) && fim.isBefore(nextFim)){
 
                     count++;
                 //Datas iguais
-                }else if(auxInicio.isEqual(nextInicio) && auxFim.isEqual(nextFim)){
+                }else if(inicio.isEqual(nextInicio) && fim.isEqual(nextFim)){
 
                     count++;
                 }
@@ -126,6 +121,7 @@ public class Reuniao {
 
         return count + 1;
     }
+
 
     public void indicaDisponibilidadeDe(String participante, LocalDateTime inicio, LocalDateTime fim){
 

@@ -234,7 +234,7 @@ public class InterfaceDoUsuario {
 
     public static void mostraSalas(GerenciadorDeSalas gerenciadorDeSalas){
 
-        System.out.println("|| As salas existentes sao:\n");
+        System.out.println("|| As salas existentes sao:");
 
         List<Sala> salas = gerenciadorDeSalas.listaDeSalas();
         
@@ -242,7 +242,7 @@ public class InterfaceDoUsuario {
 
             System.out.println("\nSala - " + salas.get(i).getNome());
             System.out.println(" Local: " + salas.get(i).getLocal());
-            System.out.println(" Descricao: " + salas.get(i).getDescricao());
+            System.out.println(" Descricao: " + salas.get(i).getDescricao() + "\n");
         }
         if(salas.size() == 0){
             System.out.println("Nao existem salas criadas");
@@ -264,10 +264,10 @@ public class InterfaceDoUsuario {
                 if(respConsole == 2)
                     break;
                 nome = askNomeSala(gerenciadorDeSalas);
+                gerenciadorDeSalas.verificaSeSalaExiste(nome);
                 local = askLocal();
                 capacidade = askCapacidade();
                 descricao = askDescricao();
-                gerenciadorDeSalas.verificaSeSalaExiste(nome);
                 gerenciadorDeSalas.adicionaSalaChamada(nome, capacidade, descricao, local);
                 System.out.println("\n| sala criada com sucesso");
                 break;
@@ -365,7 +365,7 @@ public class InterfaceDoUsuario {
                     break;
                 }
                 String nomeSala = askNomeSala(gerenciadorDeSalas);
-                gerenciadorDeSalas.verificaSeSalaNaoExiste(nomeSala);
+                gerenciadorDeSalas.verificaSeSalaExiste(nomeSala);
                 LocalDateTime dataInicial = askDateTimeInicial();
                 LocalDateTime dataFinal = askDateTimeFinal();
                 verificaSeDataFinalMaiorQueDataInicial(dataInicial, dataFinal);
@@ -410,7 +410,7 @@ public class InterfaceDoUsuario {
                 break;
             }catch (Exception e) {
                 
-                System.out.println("\n| Houve algo de errado ao remover sala, tente novamente");
+                System.out.println("\n| Houve algo de errado ao remover sala");
                 
                 boolean resp;
                 int respConsole;                
@@ -499,10 +499,10 @@ public class InterfaceDoUsuario {
             try{
                 if(gerenciadorDeSalas.listaDeSalas().size() == 0){
 
-                    System.out.println("\n| Nao existem salas, portanto não existem reservas para serem removidas: ");
+                    System.out.println("\n| Nao existem salas, portanto nao existem reservas para serem removidas: ");
                     break;
                 }
-
+                
                 System.out.println("\n| Insira o nome da sala da qual a reserva sera cancelada: ");
                 nomeDaSala = console.readLine();
                 gerenciadorDeSalas.verificaSeSalaNaoExiste(nomeDaSala);

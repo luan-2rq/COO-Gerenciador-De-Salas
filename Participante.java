@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.util.*;
+
 public class Participante {
 
     private ArrayList<Reuniao> reunioes; 
@@ -22,7 +23,7 @@ public class Participante {
     }
 
     public String getNome() {
-        
+
         return nome;
     }
 

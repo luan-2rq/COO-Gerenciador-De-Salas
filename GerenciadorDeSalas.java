@@ -127,6 +127,7 @@ public class GerenciadorDeSalas{
             if(reservas.get(i).getId() == cancelada.getId()){
 
                 reservas.remove(i);
+                System.out.println("Reserva cancelada com sucesso ");
                 return;
             }
 
@@ -158,7 +159,7 @@ public class GerenciadorDeSalas{
                 System.out.println("Todas as reservas para a sala " + nomeSala + ":");
                 
                 if(reservasDaSala.size() == 0){
-                    System.out.println("Nao ha reservas para esta sala");
+                    System.out.println("\nNao ha reservas para esta sala");
                     return;
                 }
 

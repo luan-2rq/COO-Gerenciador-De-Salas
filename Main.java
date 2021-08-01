@@ -1,10 +1,3 @@
-import java.io.Console;  
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-
 public class Main {
    
     public static void main(String args[]){        
@@ -28,6 +21,7 @@ public class Main {
                     break;
                 case 3:
                     //Cancelando Reserva
+                    InterfaceDoUsuario.mostraSalas(gerenciadorDeSalas);
                     InterfaceDoUsuario.imprimeReservasDeSala(gerenciadorDeSalas);
                     InterfaceDoUsuario.cancelarReserva(gerenciadorDeSalas);
                     break;
