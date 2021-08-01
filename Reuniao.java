@@ -28,7 +28,7 @@ public class Reuniao {
 
             String strDataInicial = disponibilidades.get(participantes.get(j).getNome()).getInicio().format(formatter);
             String strDataFinal = disponibilidades.get(participantes.get(j).getNome()).getFim().format(formatter);
-            System.out.println("\nPartipante " + (j+1) + " Disponibilidade - Inicio: " + strDataInicial + " / Fim: " + strDataFinal);
+            System.out.println("\nDisponibilidade do participante " + participantes.get(j).getNome() + " - Inicio: " + strDataInicial + " / Fim: " + strDataFinal);
         }
 
         if(disponibilidadeEmComum != null){
