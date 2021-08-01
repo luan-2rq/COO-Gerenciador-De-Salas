@@ -2,6 +2,7 @@ import java.time.*;
 import java.util.*;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
 
 public class Reuniao {
     
@@ -25,17 +26,20 @@ public class Reuniao {
 
         if(disponibilidadeEmComum != null){
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             LocalDateTime dataInicio = disponibilidadeEmComum.getInicio();
             LocalDateTime dataFim = disponibilidadeEmComum.getFim();
+            String strDataInicio = dataInicio.format(formatter);
+            String strDataFim = dataFim.format(formatter);
 
             Long periodo = dataInicio.until(dataFim, ChronoUnit.HOURS);
 
-            System.out.println("Todos podem no dia " + dataInicio + 
-            " até " + dataFim + " || " + "Periodo para a reunião: " + periodo + "hours" );
+            System.out.println("Todos podem no dia " + strDataInicio + 
+            " ate " + strDataFim + " || " + "Periodo para a reuniao: " + periodo + "horas" );
         }
         else{
 
-            System.out.println("||---Não houve sobreposição de horário para todos os participantes---||");
+            System.out.println("||---Nao houve sobreposicao de horario para todos os participantes---||");
         }
         
         
@@ -101,6 +105,10 @@ public class Reuniao {
                     count++;
                 //Sobreposição com X antes de Y
                 }else if(auxInicio.isBefore(nextInicio) && auxFim.isBefore(nextFim)){
+
+                    count++;
+                //Datas iguais
+                }else if(auxInicio.isEqual(nextInicio) && auxFim.isEqual(nextFim)){
 
                     count++;
                 }

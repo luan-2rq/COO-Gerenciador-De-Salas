@@ -55,7 +55,9 @@ public class MarcadorDeReuniao{
 
             ArrayList<Participante> participantes = reunioes.get(i).getParticipantes();
             System.out.println("  Participantes: " + reunioes.get(i).getDataFinal().format(formatter) + "\n");
+            
             for(int j = 0; j < participantes.size(); i++){
+
                 System.out.println("Participante " + (i+1) + ":" + participantes.get(j).getNome()); 
             }
         }

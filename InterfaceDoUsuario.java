@@ -449,8 +449,11 @@ public class InterfaceDoUsuario {
 
     public static int askOpcoes(){
         int resp;
+
         while(true){
+
             try{
+
                 System.out.println("\n|| Escolha uma das opcoes:");
                 System.out.println("\n(1) - Marcar Reuniao");
                 System.out.println("(2) - Reservar Sala");
@@ -460,11 +463,14 @@ public class InterfaceDoUsuario {
                 System.out.println("(6) - Imprimir Reservas de Sala");
                 System.out.println("(7) - Imprimir Reunioes");
                 resp = (int)Integer.parseInt(console.readLine());
+
                 if(resp > 7 || resp < 1){
-                    throw new Exception("\n| As opcoes vao de 1 a 7, selecione novamente:");
+
+                    throw new Exception("\n| As opcoes vao de 1 a 7, selecione novamente: ");
                 }
                 break;
             }catch (Exception e) {
+                
                 System.out.println("\n| Algo errado ocorreu durante a selecao de opcoes, insira a opcao novamente");
                 continue;
             }
