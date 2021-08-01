@@ -128,7 +128,7 @@ public class InterfaceDoUsuario {
             
             try{          
                 
-                System.out.println("Insira o nome da sala a ser criada: ");
+                System.out.println("Insira o nome da sala: ");
                 nomeDaSala = console.readLine();
                 break;
             } catch (Exception e) {
@@ -290,7 +290,11 @@ public class InterfaceDoUsuario {
         while(true){
 
             try{
+                if(gerenciadorDeSalas.listaDeSalas().size() == 0){
 
+                    System.out.println("\n| Nao ha salas para serem reservadas");
+                    break;
+                }
                 String nomeSala = askNomeSala(gerenciadorDeSalas);
                 LocalDateTime dataInicial = askDateTime();
                 LocalDateTime dataFinal = askDateTime();
@@ -387,6 +391,7 @@ public class InterfaceDoUsuario {
                 if(gerenciadorDeSalas.listaDeSalas().size() == 0){
 
                     System.out.println("\n| Não existem salas, portanto não existem reservas para serem removidas: ");
+                    break;
                 }
 
                 System.out.println("\n| Insira o nome da sala da qual a reserva sera cancelada: ");
