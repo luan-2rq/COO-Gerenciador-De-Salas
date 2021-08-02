@@ -330,10 +330,27 @@ public class InterfaceDoUsuario {
         
                 marcadorDeReuniao.marcarReuniaoEntre(dataInicial, dataFinal, participantes);
         
-                System.out.println("\n|| Insira as disponibilidades para a reunião:\n");
+                System.out.println("\n|| Insira as disponibilidades para a reuniao:\n");
                 askDisponibilidades(marcadorDeReuniao);
-        
-                System.out.println("\n|| Reunião marcada!");
+
+                Reuniao reuniao = marcadorDeReuniao.getUltimaReuniao();
+                reuniao.mostraSobreposicao();
+
+                System.out.println("\n| Voce deseja marcar defenitivamente a reuniao? Digite 1 para SIM ou 2 para NAO e tentar novamente");
+                boolean desejaMarcar = Integer.parseInt(console.readLine()) == 1;
+                if(desejaMarcar){
+
+                    System.out.println("\n|| Escolha os horarios definitivos para sua reuniao:");
+                    System.out.println("\n| Coloque a data inicial definitiva da reuniao:\n");
+                    LocalDateTime dataInicioDefinitiva = askDateTimeInicial();
+                    System.out.println("\n| Coloque a data final definitiva da reuniao:\n");
+                    LocalDateTime dataFimDefinitiva = askDateTimeFinal();
+                    marcadorDeReuniao.agendaReuniao(dataInicioDefinitiva, dataFimDefinitiva);;
+                    System.out.println("\n|| Reuniao marcada!");
+                }else{
+
+                    System.out.println("\n|| A reuniao nao foi marcada");
+                }
                 break;
             }catch (Exception e) {
                 

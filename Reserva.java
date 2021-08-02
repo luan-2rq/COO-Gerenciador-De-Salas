@@ -3,15 +3,13 @@ import java.time.*;
 public class Reserva{
     
     private Sala sala;
-    private LocalDateTime inicio;
-    private LocalDateTime fim;
+    private IntervaloDeData<LocalDateTime> data;
     private int id;
 
     public Reserva(Sala sala, LocalDateTime inicio, LocalDateTime fim, int id){
 
         this.sala = sala;
-        this.inicio = inicio;
-        this.fim = fim;
+        this.data = new IntervaloDeData<LocalDateTime>(inicio, fim);
         this.id = id;
     }
 
@@ -22,12 +20,12 @@ public class Reserva{
 
     public LocalDateTime inicio(){
 
-        return inicio;
+        return data.getInicio();
     }
 
     public LocalDateTime fim(){
 
-        return fim;
+        return data.getFim();
     }
     
     public int getId(){

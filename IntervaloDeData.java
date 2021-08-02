@@ -1,22 +1,20 @@
-import java.time.*;
+public class IntervaloDeData<T>{
 
-public class IntervaloDeData{
+    private T inicio;
+    private T fim;
 
-    private LocalDateTime inicio;
-    private LocalDateTime fim;
-
-    public IntervaloDeData(LocalDateTime inicio, LocalDateTime fim){
+    public IntervaloDeData(T inicio, T fim){
 
         this.inicio = inicio;
         this.fim = fim;
     }
 
-    public LocalDateTime getInicio(){
+    public T getInicio(){
 
         return inicio;
     }
 
-    public LocalDateTime getFim(){
+    public T getFim(){
         
         return fim;
     }

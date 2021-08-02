@@ -14,8 +14,6 @@ public class Main {
                 case 1:
                     //Criando Reuniao
                     InterfaceDoUsuario.criaReuniao(marcadorDeReuniao);
-                    Reuniao reuniao = marcadorDeReuniao.getUltimaReuniao();
-                    reuniao.mostraSobreposicao();
                     break;
                 case 2:
                     //Criando Reserva

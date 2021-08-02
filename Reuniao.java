@@ -6,22 +6,22 @@ import java.time.format.DateTimeFormatter;
 public class Reuniao {
     
     private ArrayList<Participante> participantes;
-    private LocalDate dataInicial;
-    private LocalDate dataFinal;
-    private HashMap<String, IntervaloDeData> disponibilidades;
+    private IntervaloDeData<LocalDate> dataPrevista;
+    private IntervaloDeData<LocalDateTime> dataDefinitiva;
+    private HashMap<String, IntervaloDeData<LocalDateTime>> disponibilidades;
+    private boolean agendada;
     
     public Reuniao(LocalDate dataInicio, LocalDate dataFim){
 
-        this.dataInicial = dataInicio;
-        this.dataFinal = dataFim;
-        this.disponibilidades = new HashMap<String, IntervaloDeData>();
+        this.dataPrevista = new IntervaloDeData<LocalDate>(dataInicio, dataFim);
+        this.disponibilidades = new HashMap<String, IntervaloDeData<LocalDateTime>>();
     }
 
     public void mostraSobreposicao(){
 
         System.out.println("-------------------------------------------------------------");
 
-        IntervaloDeData disponibilidadeEmComum = encontreSobreposicao(this.getDisponibilidades());
+        IntervaloDeData<LocalDateTime> disponibilidadeEmComum = encontreSobreposicao(this.getDisponibilidades());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
         for(int j = 0; j < participantes.size(); j++){
@@ -41,7 +41,7 @@ public class Reuniao {
             Long periodo = dataInicio.until(dataFim, ChronoUnit.HOURS);
             
             System.out.println("\n| Todos podem no dia " + strDataInicio + 
-            " ate " + strDataFim + " || " + "Periodo para a reuniao: " + periodo + "horas" );
+            " ate " + strDataFim + " || " + "Periodo para a reuniao: " + periodo + " horas" );
         }else{
 
             System.out.println("\n||---Nao houve sobreposicao de horario para todos os participantes---||");
@@ -50,22 +50,22 @@ public class Reuniao {
         System.out.println("-------------------------------------------------------------");
     }
 
-    private IntervaloDeData encontreSobreposicao(Map<String, IntervaloDeData> disponibilidades){
+    private IntervaloDeData<LocalDateTime> encontreSobreposicao(Map<String, IntervaloDeData<LocalDateTime>> disponibilidades){
         
-        IntervaloDeData sobreposicao = null;
-        Iterator<Map.Entry<String, IntervaloDeData>> sobreposicoes = disponibilidades.entrySet().iterator();
+        IntervaloDeData<LocalDateTime> sobreposicao = null;
+        Iterator<Map.Entry<String, IntervaloDeData<LocalDateTime>>> sobreposicoes = disponibilidades.entrySet().iterator();
         int numSobreposicoes = numeroDeSobreposicoes(disponibilidades);
 
         if(numSobreposicoes == disponibilidades.size()){
             
             sobreposicoes = disponibilidades.entrySet().iterator();
-            Map.Entry<String, IntervaloDeData> disponibilidade = sobreposicoes.next();
+            Map.Entry<String, IntervaloDeData<LocalDateTime>> disponibilidade = sobreposicoes.next();
             LocalDateTime finalDateInicio = disponibilidade.getValue().getInicio();
             LocalDateTime finalDateFim = disponibilidade.getValue().getFim();
 
             for(int i = 0; i < disponibilidades.size() - 1; i++){
 
-                Map.Entry<String, IntervaloDeData> nextDisponibilidade = sobreposicoes.next();
+                Map.Entry<String, IntervaloDeData<LocalDateTime>> nextDisponibilidade = sobreposicoes.next();
                 LocalDateTime nextDateInicio = nextDisponibilidade.getValue().getInicio();
                 LocalDateTime nextDateFim = nextDisponibilidade.getValue().getFim();
 
@@ -79,17 +79,17 @@ public class Reuniao {
                 }
             }
                 
-            IntervaloDeData disponibilidadeEmComum = new IntervaloDeData(finalDateInicio, finalDateFim);
+            IntervaloDeData<LocalDateTime> disponibilidadeEmComum = new IntervaloDeData<LocalDateTime>(finalDateInicio, finalDateFim);
             sobreposicao = disponibilidadeEmComum;
         }
         return sobreposicao;
     }
 
-    private int numeroDeSobreposicoes(Map<String, IntervaloDeData> disponibilidades){
+    private int numeroDeSobreposicoes(Map<String, IntervaloDeData<LocalDateTime>> disponibilidades){
 
         int count = 0;
-        Iterator<Map.Entry<String, IntervaloDeData>> sobreposicoes = disponibilidades.entrySet().iterator();
-        Map.Entry<String, IntervaloDeData> disponibilidade = sobreposicoes.next();
+        Iterator<Map.Entry<String, IntervaloDeData<LocalDateTime>>> sobreposicoes = disponibilidades.entrySet().iterator();
+        Map.Entry<String, IntervaloDeData<LocalDateTime>> disponibilidade = sobreposicoes.next();
         LocalDateTime inicio = disponibilidade.getValue().getInicio();
         LocalDateTime fim = disponibilidade.getValue().getFim();
 
@@ -132,7 +132,7 @@ public class Reuniao {
 
     public void indicaDisponibilidadeDe(String participante, LocalDateTime inicio, LocalDateTime fim){
 
-        addDisponibilidade(participante, new IntervaloDeData(inicio, fim));
+        addDisponibilidade(participante, new IntervaloDeData<LocalDateTime>(inicio, fim));
     }
 
     
@@ -141,24 +141,44 @@ public class Reuniao {
         return participantes;
     }
 
-    public LocalDate getDataFinal() {
+    public IntervaloDeData<LocalDate> getDataPrevista() {
 
-        return dataFinal;
+        return dataPrevista;
     }
 
-    public LocalDate getDataInicial() {
+    public IntervaloDeData<LocalDateTime> getDataDefinitiva() {
 
-        return dataInicial;
+        return dataDefinitiva;
     }
 
-    public HashMap<String, IntervaloDeData> getDisponibilidades() {
+    public void setDataPrevista(IntervaloDeData<LocalDate> dataPrevista) {
+
+        this.dataPrevista = dataPrevista;
+    }
+
+    public void setDataDefinitiva(IntervaloDeData<LocalDateTime> dataDefinitiva) {
+
+        this.dataDefinitiva = dataDefinitiva;
+    }
+
+    public boolean getAgendada(){
+
+        return agendada;
+    }
+
+    public void setAgendada(boolean agendada){
+
+        this.agendada = agendada;
+    }
+
+    public HashMap<String, IntervaloDeData<LocalDateTime>> getDisponibilidades() {
 
         return disponibilidades;
     }
 
-    private void addDisponibilidade(String participante, IntervaloDeData disponibilidade) {
+    private void addDisponibilidade(String participante, IntervaloDeData<LocalDateTime> disponibilidade) {
 
-        IntervaloDeData resposta = this.disponibilidades.putIfAbsent(participante, disponibilidade);
+        IntervaloDeData<LocalDateTime> resposta = this.disponibilidades.putIfAbsent(participante, disponibilidade);
         
         if(resposta != null){
 

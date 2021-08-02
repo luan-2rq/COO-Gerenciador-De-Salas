@@ -33,6 +33,13 @@ public class MarcadorDeReuniao{
         reunioes.add(reuniao);
     }
 
+    public void agendaReuniao(LocalDateTime dataInicial, LocalDateTime dataFinal){
+        Reuniao ultimaReuniao = getUltimaReuniao();
+        ultimaReuniao.setAgendada(true);
+        IntervaloDeData<LocalDateTime> dataDefinitiva = new IntervaloDeData<LocalDateTime>(dataInicial, dataFinal);
+        ultimaReuniao.setDataDefinitiva(dataDefinitiva);
+    }
+
     public Reuniao getUltimaReuniao(){
 
         return reunioes.get(reunioes.size() - 1);
@@ -48,17 +55,18 @@ public class MarcadorDeReuniao{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         for(int i = 0; i < reunioes.size(); i++){
+            if(reunioes.get(i).getAgendada()){
+                System.out.println("\nReuniao " + (i+1) + ":\n");
+                System.out.println("  Data Inicial: " + reunioes.get(i).getDataDefinitiva().getInicio().format(formatter));
+                System.out.println("  Data Final: " + reunioes.get(i).getDataPrevista().getFim().format(formatter) + "\n");
 
-            System.out.println("\nReuniao " + (i+1) + ":\n");
-            System.out.println("  Data Inicial: " + reunioes.get(i).getDataInicial().format(formatter));
-            System.out.println("  Data Final: " + reunioes.get(i).getDataFinal().format(formatter) + "\n");
+                ArrayList<Participante> participantes = reunioes.get(i).getParticipantes();
+                System.out.println("  Participantes:");
 
-            ArrayList<Participante> participantes = reunioes.get(i).getParticipantes();
-            System.out.println("  Participantes:");
+                for(int j = 0; j < participantes.size(); j++){
 
-            for(int j = 0; j < participantes.size(); j++){
-
-                System.out.println("  Participante " + (j+1) + ": " + participantes.get(j).getNome()); 
+                    System.out.println("  Participante " + (j+1) + ": " + participantes.get(j).getNome()); 
+                }
             }
         }
     }
